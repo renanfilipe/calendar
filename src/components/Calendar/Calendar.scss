@@ -1,0 +1,38 @@
+.calendar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  table {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  .calendar__header {
+    font-size: 13px;
+
+    tr {
+      background-color: #2f75b5;
+      color: white;
+    }
+
+    th {
+      width: 98px;
+      border: 1px solid black;
+    }
+  }
+
+  .calendar__body {
+    font-size: 13px;
+
+    td {
+      height: 77px;
+      border: 1px solid black;
+      vertical-align: top;
+      padding: 0px 8px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+}
