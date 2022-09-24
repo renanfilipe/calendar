@@ -1,6 +1,6 @@
 import Readme from "components/Readme/Readme";
 
-function App() {
+function HomePage() {
   return (
     <div>
       <Readme />
@@ -8,4 +8,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomePage;

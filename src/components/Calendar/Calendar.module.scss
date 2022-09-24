@@ -1,24 +1,4 @@
-.calendar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-
-  table {
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
-
-  .calendar__body {
-    font-size: 13px;
-
-    td {
-      height: 77px;
-      border: 1px solid black;
-      vertical-align: top;
-      padding: 0px 8px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-  }
+.table {
+  border: 1px solid black;
+  border-collapse: collapse;
 }

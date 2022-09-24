@@ -17,13 +17,8 @@ function Cell({ value, isWeekend, isCurrentMonth }) {
 
 Cell.propTypes = {
   value: number.isRequired,
-  isWeekend: bool,
-  isCurrentMonth: bool,
-};
-
-Cell.defaultProps = {
-  isWeekend: undefined,
-  isCurrentMonth: undefined,
+  isWeekend: bool.isRequired,
+  isCurrentMonth: bool.isRequired,
 };
 
 export default Cell;

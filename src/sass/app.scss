@@ -23,10 +23,6 @@ code {
   margin: 0;
 }
 
-* + * {
-  margin-top: 1rem;
-}
-
 h1,
 h2,
 h3,
@@ -57,6 +53,10 @@ li {
 .readme {
   width: 800px;
   margin: 2rem calc((100vw - 800px) / 2);
+
+  * + * {
+    margin-top: 1rem;
+  }
 }
 
 .counter {

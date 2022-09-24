@@ -1,5 +1,7 @@
 import React from "react";
 
+import { number } from "prop-types";
+
 import styles from "./Body.module.scss";
 import Row from "./Components/Row/Row";
 import generateCalendarDays from "./Utils/generateCalendarDays";
@@ -7,9 +9,7 @@ import generateCalendarDays from "./Utils/generateCalendarDays";
 const numberOfRows = 5;
 const numberOfDaysInAWeek = 7;
 
-function Body() {
-  const month = 11;
-  const year = 2022;
+function Body({ month, year }) {
   const data = generateCalendarDays(month, year);
 
   function renderRows(data) {
@@ -33,5 +33,10 @@ function Body() {
 
   return <tbody className={styles.body}>{renderRows(data)}</tbody>;
 }
+
+Body.propTypes = {
+  month: number.isRequired,
+  year: number.isRequired,
+};
 
 export default Body;
