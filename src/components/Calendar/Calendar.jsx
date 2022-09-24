@@ -1,13 +1,12 @@
 import React from "react";
 
+import styles from "./Calendar.module.scss";
 import Body from "./Components/Body/Body";
 import Header from "./Components/Header/Header";
 
-import "./Calendar.scss";
-
 function Calendar() {
   return (
-    <div className="calendar">
+    <div className={styles.calendar}>
       <table>
         <Header />
         <Body />

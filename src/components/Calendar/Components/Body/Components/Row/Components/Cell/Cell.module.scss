@@ -1,0 +1,21 @@
+.cell {
+  height: 77px;
+  border: 1px solid black;
+  vertical-align: top;
+  padding: 0px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #a9a9a9;
+}
+
+.is-weekend {
+  background-color: #f2f2f2;
+}
+
+.is-in-month {
+  color: #000000;
+
+  &.is-weekend {
+    color: #406fab;
+  }
+}

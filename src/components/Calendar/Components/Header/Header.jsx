@@ -1,8 +1,10 @@
 import React from "react";
 
+import styles from "./Header.module.scss";
+
 function Header() {
   return (
-    <thead className="calendar__header">
+    <thead className={styles.header}>
       <tr>
         <th>Sunday</th>
         <th>Monday</th>
