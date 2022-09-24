@@ -7,13 +7,16 @@ function getNextMonthDays(date) {
 
   const nextDays = [];
   for (let i = 1; i <= 6 - weekday; i++) {
+    const nextDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate() + i
+    );
     nextDays.push({
+      day: nextDate.getUTCDate(),
+      month: nextDate.getMonth(),
+      year: nextDate.getFullYear(),
       isCurrentMonth: false,
-      value: new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate() + i
-      ).getUTCDate(),
     });
   }
 

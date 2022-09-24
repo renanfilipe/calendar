@@ -9,8 +9,10 @@ function generateCalendarDays(month, year) {
   const currentMonthDays = Array.from(
     { length: lastMonthDayDate.getUTCDate() },
     (_, i) => ({
+      day: i + 1,
+      month,
+      year,
       isCurrentMonth: true,
-      value: i + 1,
     })
   );
 

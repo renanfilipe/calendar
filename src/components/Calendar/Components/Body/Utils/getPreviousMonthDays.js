@@ -9,9 +9,12 @@ function getPreviousMonthDays(date) {
   const previousDays = [];
 
   for (let i = 1; i <= weekday; i++) {
+    const previousDate = new Date(date - i * millisecondsInADay);
     previousDays.push({
+      day: previousDate.getUTCDate(),
+      month: previousDate.getUTCMonth(),
+      year: previousDate.getUTCFullYear(),
       isCurrentMonth: false,
-      value: new Date(date - i * millisecondsInADay).getUTCDate(),
     });
   }
 

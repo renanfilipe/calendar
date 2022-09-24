@@ -2,10 +2,24 @@
   height: 77px;
   border: 1px solid black;
   vertical-align: top;
-  padding: 0px 8px;
+  padding: 2px;
   font-size: 12px;
   font-weight: bold;
   color: #a9a9a9;
+}
+
+.value {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.is-today {
+  border: 1px solid #77bacf;
+  background-color: #eefbff;
+  border-radius: 50%;
 }
 
 .is-weekend {
@@ -14,8 +28,4 @@
 
 .is-in-month {
   color: #000000;
-
-  &.is-weekend {
-    color: #406fab;
-  }
 }
