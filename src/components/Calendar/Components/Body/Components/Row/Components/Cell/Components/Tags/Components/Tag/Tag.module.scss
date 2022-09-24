@@ -10,3 +10,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.transparent {
+  border: 1px solid gray;
+  background: transparent;
+  color: black;
+}

@@ -6,7 +6,7 @@ import { number, bool, array } from "prop-types";
 import styles from "./Cell.module.scss";
 import Tags from "./Components/Tags/Tags";
 
-function Cell({ day, month, isWeekend, isCurrentMonth, isToday, reminders }) {
+function Cell({ day, isWeekend, isCurrentMonth, isToday, reminders }) {
   const className = classnames([
     styles.cell,
     isCurrentMonth && styles["is-in-month"],
@@ -18,16 +18,13 @@ function Cell({ day, month, isWeekend, isCurrentMonth, isToday, reminders }) {
       <div className={classnames(styles.value, isToday && styles["is-today"])}>
         <span>{day}</span>
       </div>
-      {reminders.length > 0 && (
-        <Tags reminders={reminders} day={day} month={month} />
-      )}
+      {reminders.length > 0 && <Tags reminders={reminders} />}
     </td>
   );
 }
 
 Cell.propTypes = {
   day: number.isRequired,
-  month: number.isRequired,
   isWeekend: bool.isRequired,
   isCurrentMonth: bool.isRequired,
   isToday: bool.isRequired,
