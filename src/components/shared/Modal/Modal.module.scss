@@ -1,0 +1,17 @@
+.modal {
+  position: relative;
+  min-width: 140px;
+}
+
+.close {
+  position: absolute;
+  display: flex;
+  top: -10px;
+  right: -10px;
+  padding: 0;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}

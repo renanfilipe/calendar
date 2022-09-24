@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import styles from "./Calendar.module.scss";
-import Body from "./Components/Body/Body";
-import Controls from "./Components/Controls/Controls";
-import Header from "./Components/Header/Header";
+import Body from "./components/Body/Body";
+import Controls from "./components/Controls/Controls";
+import Header from "./components/Header/Header";
 
 function Calendar() {
   const [month, setMonth] = useState(0);

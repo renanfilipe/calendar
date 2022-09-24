@@ -3,8 +3,8 @@ import React from "react";
 import { number } from "prop-types";
 
 import styles from "./Body.module.scss";
-import Row from "./Components/Row/Row";
-import generateCalendarDays from "./Utils/generateCalendarDays";
+import Row from "./components/Row/Row";
+import generateCalendarDays from "./utils/generateCalendarDays";
 
 const numberOfRows = 5;
 const numberOfDaysInAWeek = 7;

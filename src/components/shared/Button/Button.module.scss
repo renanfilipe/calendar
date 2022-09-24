@@ -1,0 +1,22 @@
+.button {
+  cursor: pointer;
+}
+
+.circular {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #efefef;
+  border: 1px solid #777777;
+  padding: 3px;
+
+  &:hover {
+    background-color: #d7d7d7;
+  }
+}
+
+.ghost {
+  background: transparent;
+  border-color: transparent;
+}

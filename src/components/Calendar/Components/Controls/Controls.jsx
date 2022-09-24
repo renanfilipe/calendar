@@ -1,11 +1,10 @@
 import React from "react";
 
-import ChevronLeft from "assets/chevronLeft.svg";
-import ChevronRight from "assets/chevronRight.svg";
+import Button from "components/shared/Button/Button";
 import { number, func } from "prop-types";
 
 import styles from "./Controls.module.scss";
-import getMonthNameFromNumber from "./Utils/getMonthNameFromNumber";
+import getMonthNameFromNumber from "./utils/getMonthNameFromNumber";
 
 function Controls({ month, setMonth, year, setYear }) {
   function handleClick(direction) {
@@ -30,12 +29,17 @@ function Controls({ month, setMonth, year, setYear }) {
 
   return (
     <div className={styles.controls}>
-      <button onClick={handleClick("prev")}>
-        <img src={ChevronLeft} alt="<" />
-      </button>
-      <button onClick={handleClick("next")} className={styles["right-button"]}>
-        <img src={ChevronRight} alt=">" />
-      </button>
+      <Button
+        onClick={handleClick("prev")}
+        icon="chevronLeft"
+        variant="circular"
+      />
+      <Button
+        onClick={handleClick("next")}
+        icon="chevronRight"
+        className={styles["right-button"]}
+        variant="circular"
+      />
       <h1 className={styles.title}>
         {monthName} of {year}
       </h1>

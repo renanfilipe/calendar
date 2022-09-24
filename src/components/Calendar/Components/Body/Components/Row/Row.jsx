@@ -1,7 +1,7 @@
 import React from "react";
 
-import Cell from "./Components/Cell/Cell";
-import isToday from "./Utils/isToday";
+import Cell from "./components/Cell/Cell";
+import isToday from "./utils/isToday";
 
 const state = {
   "2022-0-3": {
@@ -82,6 +82,8 @@ function Row({ data, rowNumber }) {
         <Cell
           key={`cell-${rowNumber}-${day}`}
           day={day}
+          month={month}
+          year={year}
           isCurrentMonth={isCurrentMonth}
           isWeekend={index === 0 || index === 6}
           isToday={isToday(day, month, year)}

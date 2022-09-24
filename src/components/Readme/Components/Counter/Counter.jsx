@@ -2,7 +2,7 @@ import React from "react";
 
 import PropTypes from "prop-types";
 
-import Button from "./Components/Button";
+import Button from "./components/Button";
 
 function Counter({ limit }) {
   const [count, setCount] = React.useState(0);

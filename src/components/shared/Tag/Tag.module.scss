@@ -9,10 +9,20 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    background-color: #028bce;
+  }
 }
 
 .transparent {
   border: 1px solid gray;
-  background: transparent;
+  background-color: transparent;
   color: black;
+
+  &:hover {
+    background-color: #0000000d;
+  }
 }
