@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
 
 import classnames from "classnames";
 import DetailsModal from "components/shared/DetailsModal/DetailsModal";
@@ -6,25 +7,31 @@ import useDetailsModal from "components/shared/DetailsModal/useDetailsModal";
 import Modal from "components/shared/Modal/Modal";
 import Tag from "components/shared/Tag/Tag";
 import { string } from "prop-types";
+import { getActiveDay } from "reducers/calendar/selectors";
 
 import styles from "./MoreModal.module.scss";
 
-function MoreModal({ isOpen, closeModal, day, month, year, reminders }) {
+function MoreModal({ isOpen, closeModal, reminders }) {
+  const activeDay = useSelector(getActiveDay);
+  const date = new Date(...activeDay.split("-"));
+  const weekday = date.toLocaleDateString("en-US", { weekday: "long" });
+  const formattedDate = date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+  });
+
   const {
     handleTagClick,
     isDetailsModalOpen,
     handleDetailsModalClose,
     selectedReminder,
     monthPlusDay,
-  } = useDetailsModal({ day, month, year });
-
-  const date = new Date(year, month, day);
-  const weekday = date.toLocaleDateString("en-US", { weekday: "long" });
+  } = useDetailsModal();
 
   const header = (
     <div className={styles.header}>
       <h4 className={styles.weekday}>{weekday}</h4>
-      <h3 className={styles["month-plus-day"]}>{monthPlusDay}</h3>
+      <h3 className={styles["month-plus-day"]}>{formattedDate}</h3>
     </div>
   );
 
@@ -48,6 +55,7 @@ function MoreModal({ isOpen, closeModal, day, month, year, reminders }) {
           closeModal={handleDetailsModalClose}
           reminder={selectedReminder}
           monthPlusDay={monthPlusDay}
+          closeOtherModals={[closeModal]}
         />
       )}
     </Fragment>

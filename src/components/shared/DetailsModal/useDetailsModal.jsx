@@ -1,8 +1,10 @@
 import { useState } from "react";
 
 import useModal from "components/shared/Modal/useModal";
+import useCalendarActions from "reducers/calendar/actions";
 
-function useDetailsModal({ day, month, year }) {
+function useDetailsModal() {
+  const { setActiveDay } = useCalendarActions();
   const [selectedReminder, setSelectedReminder] = useState({});
 
   const {
@@ -13,23 +15,17 @@ function useDetailsModal({ day, month, year }) {
 
   function handleTagClick(reminder) {
     return () => {
+      setActiveDay(reminder.date);
       setSelectedReminder(reminder);
       handleDetailsModalOpen();
     };
   }
-
-  const date = new Date(year, month, day);
-  const monthPlusDay = date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-  });
 
   return {
     handleTagClick,
     isDetailsModalOpen,
     handleDetailsModalClose,
     selectedReminder,
-    monthPlusDay,
   };
 }
 

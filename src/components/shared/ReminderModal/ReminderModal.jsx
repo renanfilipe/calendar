@@ -5,18 +5,22 @@ import Button from "components/shared/Button/Button";
 import Input from "components/shared/Input/Input";
 import Modal from "components/shared/Modal/Modal";
 import { toast } from "components/shared/Toast/Toast";
-import { bool, func } from "prop-types";
+import { bool, func, array } from "prop-types";
 import { string } from "prop-types";
+import useCalendarActions from "reducers/calendar/actions";
 
 import styles from "./ReminderModal.module.scss";
 
 function ReminderModal({
   isOpen,
   closeModal,
+  id,
   date: initialDate,
   city: initialCity,
   content: initialContent,
+  closeOtherModals,
 }) {
+  const { addReminder, editReminder } = useCalendarActions();
   const [content, setContent] = useState(initialContent);
   const [date, setDate] = useState(() => {
     if (initialDate) {
@@ -25,6 +29,7 @@ function ReminderModal({
   });
   const [city, setCity] = useState(initialCity);
 
+  const isEditMode = !!initialContent;
   const canSave = !!content && !!date && !!city;
 
   function handleContentChange(event) {
@@ -40,11 +45,22 @@ function ReminderModal({
   }
 
   function handleSave() {
+    const payload = {
+      content,
+      city,
+      date,
+    };
+    if (isEditMode) {
+      editReminder({ id, ...payload });
+    } else {
+      addReminder(payload);
+    }
     toast("Saved!", { type: "success" });
     closeModal();
+    closeOtherModals.forEach((func) => func());
   }
 
-  const header = <h3>{initialContent ? "Edit" : "Add"} reminder</h3>;
+  const header = <h3>{isEditMode ? "Edit" : "Add"} reminder</h3>;
   const footer = (
     <Fragment>
       <Button onClick={closeModal} variant="secondary">
@@ -75,6 +91,7 @@ function ReminderModal({
           selected={date}
           onChange={handleDateChange}
           timeIntervals="60"
+          disabled={isEditMode}
         />
       </Input>
       <Input label="Time">
@@ -86,6 +103,7 @@ function ReminderModal({
           timeIntervals="60"
           timeCaption="Time"
           dateFormat="h:mm aa"
+          disabled={isEditMode}
         />
       </Input>
       <Input label="City" onChange={handleCityChange} value={city} />
@@ -99,12 +117,16 @@ ReminderModal.propTypes = {
   date: string,
   city: string,
   content: string,
+  id: string,
+  closeOtherModals: array,
 };
 
 ReminderModal.defaultProps = {
   date: undefined,
   city: "",
   content: "",
+  id: undefined,
+  closeOtherModals: [],
 };
 
 export default ReminderModal;

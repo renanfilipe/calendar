@@ -1,0 +1,10 @@
+const PREFIX = "CALENDAR";
+
+const constants = {
+  SET_ACTIVE_DAY: `${PREFIX}/SET_ACTIVE_DAY`,
+  ADD_REMINDER: `${PREFIX}/ADD_REMINDER`,
+  EDIT_REMINDER: `${PREFIX}/EDIT_REMINDER`,
+  REMOVE_REMINDER: `${PREFIX}/REMOVE_REMINDER`,
+};
+
+export default constants;

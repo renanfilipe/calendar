@@ -1,20 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import classnames from "classnames";
-import { number, bool, array } from "prop-types";
+import { number, bool } from "prop-types";
+import { getReminders } from "reducers/calendar/selectors";
 
 import styles from "./Cell.module.scss";
 import Tags from "./components/Tags/Tags";
 
-function Cell({
-  day,
-  month,
-  year,
-  isWeekend,
-  isCurrentMonth,
-  isToday,
-  reminders,
-}) {
+function Cell({ day, month, year, isWeekend, isCurrentMonth, isToday }) {
+  const reminders = useSelector(getReminders(day, month, year));
+
   const className = classnames([
     styles.cell,
     isCurrentMonth && styles["is-in-month"],
@@ -26,9 +22,7 @@ function Cell({
       <div className={classnames(styles.value, isToday && styles["is-today"])}>
         <span>{day}</span>
       </div>
-      {reminders.length > 0 && (
-        <Tags reminders={reminders} day={day} month={month} year={year} />
-      )}
+      {reminders.length > 0 && <Tags reminders={reminders} />}
     </td>
   );
 }
@@ -38,11 +32,8 @@ Cell.propTypes = {
   isWeekend: bool.isRequired,
   isCurrentMonth: bool.isRequired,
   isToday: bool.isRequired,
-  reminders: array,
 };
 
-Cell.defaultProps = {
-  reminders: [],
-};
+Cell.defaultProps = {};
 
 export default Cell;

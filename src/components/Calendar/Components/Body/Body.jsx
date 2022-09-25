@@ -12,7 +12,7 @@ const numberOfDaysInAWeek = 7;
 function Body({ month, year }) {
   const data = generateCalendarDays(month, year);
 
-  function renderRows(data) {
+  function renderRows() {
     const rows = [];
 
     for (let i = 0; i < numberOfRows; i++) {
@@ -31,7 +31,7 @@ function Body({ month, year }) {
     return rows;
   }
 
-  return <tbody className={styles.body}>{renderRows(data)}</tbody>;
+  return <tbody className={styles.body}>{renderRows()}</tbody>;
 }
 
 Body.propTypes = {

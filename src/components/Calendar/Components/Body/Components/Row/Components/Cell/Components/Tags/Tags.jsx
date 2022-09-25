@@ -6,21 +6,28 @@ import useDetailsModal from "components/shared/DetailsModal/useDetailsModal";
 import useModal from "components/shared/Modal/useModal";
 import Tag from "components/shared/Tag/Tag";
 import { string, arrayOf, shape } from "prop-types";
+import useCalendarActions from "reducers/calendar/actions";
 
 import MoreModal from "./components/MoreModal/MoreModal";
 import styles from "./Tags.module.scss";
 
-function Tags({ reminders, day, month, year }) {
+function Tags({ reminders }) {
+  const { setActiveDay } = useCalendarActions();
+
   const {
     handleTagClick,
     isDetailsModalOpen,
     handleDetailsModalClose,
     selectedReminder,
-    monthPlusDay,
-  } = useDetailsModal({ day, month, year });
+  } = useDetailsModal();
 
   const { isMoreModalOpen, handleMoreModalClose, handleMoreModalOpen } =
     useModal("MoreModal");
+
+  function handleMoreClick() {
+    setActiveDay(reminders[0].date);
+    handleMoreModalOpen();
+  }
 
   const hasMore = reminders.length > 4;
 
@@ -39,16 +46,13 @@ function Tags({ reminders, day, month, year }) {
           content={`${reminders.length - 3} more`}
           className={styles.tag}
           color="transparent"
-          onClick={handleMoreModalOpen}
+          onClick={handleMoreClick}
         />
       )}
       {isMoreModalOpen && (
         <MoreModal
           isOpen={isMoreModalOpen}
           closeModal={handleMoreModalClose}
-          day={day}
-          month={month}
-          year={year}
           reminders={reminders}
         />
       )}
@@ -57,7 +61,6 @@ function Tags({ reminders, day, month, year }) {
           isOpen={isDetailsModalOpen}
           closeModal={handleDetailsModalClose}
           reminder={selectedReminder}
-          monthPlusDay={monthPlusDay}
         />
       )}
     </div>
