@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import classnames from "classnames";
+import DetailsModal from "components/shared/DetailsModal/DetailsModal";
+import useDetailsModal from "components/shared/DetailsModal/useDetailsModal";
+import useModal from "components/shared/Modal/useModal";
 import Tag from "components/shared/Tag/Tag";
 import { string, arrayOf, shape } from "prop-types";
 
@@ -8,43 +11,53 @@ import MoreModal from "./components/MoreModal/MoreModal";
 import styles from "./Tags.module.scss";
 
 function Tags({ reminders, day, month, year }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const {
+    handleTagClick,
+    isDetailsModalOpen,
+    handleCloseDetailsModal,
+    selectedReminder,
+    monthPlusDay,
+  } = useDetailsModal({ day, month, year });
+
+  const {
+    isOpen: isMoreModalOpen,
+    handleClose: handleCloseMoreModal,
+    handleOpen: handleOpenMoreModal,
+  } = useModal();
 
   const hasMore = reminders.length > 4;
-  function handleClick() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
 
   return (
     <div className={styles.tags}>
-      {(hasMore ? reminders.slice(0, 3) : reminders).map(
-        ({ id, content }, index) => (
-          <Tag
-            key={id}
-            content={content}
-            className={classnames(index !== 0 && styles.tag)}
-          />
-        )
-      )}
+      {(hasMore ? reminders.slice(0, 3) : reminders).map((reminder, index) => (
+        <Tag
+          key={reminder.id}
+          content={reminder.content}
+          className={classnames(index !== 0 && styles.tag)}
+          onClick={handleTagClick(reminder)}
+        />
+      ))}
       {hasMore && (
         <Tag
           content={`${reminders.length - 3} more`}
           className={styles.tag}
           color="transparent"
-          onClick={handleClick}
+          onClick={handleOpenMoreModal}
         />
       )}
       <MoreModal
-        isOpen={isOpen}
-        closeModal={closeModal}
+        isOpen={isMoreModalOpen}
+        closeModal={handleCloseMoreModal}
         day={day}
         month={month}
         year={year}
         reminders={reminders}
+      />
+      <DetailsModal
+        isOpen={isDetailsModalOpen}
+        closeModal={handleCloseDetailsModal}
+        reminder={selectedReminder}
+        monthPlusDay={monthPlusDay}
       />
     </div>
   );

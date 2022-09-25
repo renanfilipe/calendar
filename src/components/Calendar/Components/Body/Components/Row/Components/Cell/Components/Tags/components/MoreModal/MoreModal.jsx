@@ -1,6 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import classnames from "classnames";
+import DetailsModal from "components/shared/DetailsModal/DetailsModal";
+import useDetailsModal from "components/shared/DetailsModal/useDetailsModal";
 import Modal from "components/shared/Modal/Modal";
 import Tag from "components/shared/Tag/Tag";
 import { string } from "prop-types";
@@ -8,12 +10,16 @@ import { string } from "prop-types";
 import styles from "./MoreModal.module.scss";
 
 function MoreModal({ isOpen, closeModal, day, month, year, reminders }) {
+  const {
+    handleTagClick,
+    isDetailsModalOpen,
+    handleCloseDetailsModal,
+    selectedReminder,
+    monthPlusDay,
+  } = useDetailsModal({ day, month, year });
+
   const date = new Date(year, month, day);
   const weekday = date.toLocaleDateString("en-US", { weekday: "long" });
-  var monthPlusDay = date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-  });
 
   const header = (
     <div className={styles.header}>
@@ -23,15 +29,24 @@ function MoreModal({ isOpen, closeModal, day, month, year, reminders }) {
   );
 
   return (
-    <Modal isOpen={isOpen} closeModal={closeModal} header={header}>
-      {reminders.map(({ id, content }, index) => (
-        <Tag
-          key={id}
-          content={content}
-          className={classnames(index !== 0 && styles.tag)}
-        />
-      ))}
-    </Modal>
+    <Fragment>
+      <Modal isOpen={isOpen} closeModal={closeModal} header={header}>
+        {reminders.map((reminder, index) => (
+          <Tag
+            key={reminder.id}
+            content={reminder.content}
+            className={classnames(index !== 0 && styles.tag)}
+            onClick={handleTagClick(reminder)}
+          />
+        ))}
+      </Modal>
+      <DetailsModal
+        isOpen={isDetailsModalOpen}
+        closeModal={handleCloseDetailsModal}
+        reminder={selectedReminder}
+        monthPlusDay={monthPlusDay}
+      />
+    </Fragment>
   );
 }
 

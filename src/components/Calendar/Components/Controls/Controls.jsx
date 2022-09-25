@@ -32,13 +32,15 @@ function Controls({ month, setMonth, year, setYear }) {
       <Button
         onClick={handleClick("prev")}
         icon="chevronLeft"
-        variant="circular"
+        alt="previous month"
+        variant="light"
       />
       <Button
         onClick={handleClick("next")}
         icon="chevronRight"
+        alt="next month"
         className={styles["right-button"]}
-        variant="circular"
+        variant="light"
       />
       <h1 className={styles.title}>
         {monthName} of {year}
