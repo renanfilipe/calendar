@@ -31,11 +31,16 @@ function useCalendarActions() {
     });
   }
 
+  function fetchCities(payload) {
+    return (dispatch) => {};
+  }
+
   return {
     setActiveDay,
     addReminder,
     editReminder,
     removeReminder,
+    fetchCities,
   };
 }
 

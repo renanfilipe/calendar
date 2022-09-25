@@ -89,7 +89,7 @@ function ReminderModal({
       className={styles.modal}
     >
       <Input label="Content" onChange={handleContentChange} value={content} />
-      <Input label="Date">
+      <Input label="Date" className={styles.input}>
         <DatePicker
           selected={date}
           onChange={handleDateChange}
@@ -97,7 +97,7 @@ function ReminderModal({
           disabled={isEditMode}
         />
       </Input>
-      <Input label="Time">
+      <Input label="Time" className={styles.input}>
         <DatePicker
           selected={date}
           onChange={handleDateChange}
@@ -107,9 +107,22 @@ function ReminderModal({
           timeCaption="Time"
           dateFormat="h:mm aa"
           disabled={isEditMode}
+          popperModifiers={[
+            {
+              name: "offset",
+              options: {
+                offset: [50, 0],
+              },
+            },
+          ]}
         />
       </Input>
-      <Input label="City" onChange={handleCityChange} value={city} />
+      <Input
+        label="City"
+        onChange={handleCityChange}
+        value={city}
+        className={styles.input}
+      />
     </Modal>
   );
 }
