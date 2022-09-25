@@ -45,20 +45,24 @@ function Tags({ reminders, day, month, year }) {
           onClick={handleOpenMoreModal}
         />
       )}
-      <MoreModal
-        isOpen={isMoreModalOpen}
-        closeModal={handleCloseMoreModal}
-        day={day}
-        month={month}
-        year={year}
-        reminders={reminders}
-      />
-      <DetailsModal
-        isOpen={isDetailsModalOpen}
-        closeModal={handleCloseDetailsModal}
-        reminder={selectedReminder}
-        monthPlusDay={monthPlusDay}
-      />
+      {isMoreModalOpen && (
+        <MoreModal
+          isOpen={isMoreModalOpen}
+          closeModal={handleCloseMoreModal}
+          day={day}
+          month={month}
+          year={year}
+          reminders={reminders}
+        />
+      )}
+      {isDetailsModalOpen && (
+        <DetailsModal
+          isOpen={isDetailsModalOpen}
+          closeModal={handleCloseDetailsModal}
+          reminder={selectedReminder}
+          monthPlusDay={monthPlusDay}
+        />
+      )}
     </div>
   );
 }

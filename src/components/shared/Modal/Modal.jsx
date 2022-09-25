@@ -1,6 +1,7 @@
 import React from "react";
 import ReactModal from "react-modal";
 
+import classnames from "classnames";
 import Button from "components/shared/Button/Button";
 import { bool, func, node, oneOfType, string } from "prop-types";
 
@@ -17,20 +18,21 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     padding: "10px",
+    overflow: "visible",
   },
   overlay: {
     background: "#80808066",
   },
 };
 
-function Modal({ isOpen, closeModal, children, header, footer }) {
+function Modal({ isOpen, closeModal, children, header, footer, className }) {
   return (
     <ReactModal
       isOpen={isOpen}
       onRequestClose={closeModal}
       style={customStyles}
     >
-      <div className={styles.modal}>
+      <div className={classnames(styles.modal, className)}>
         <Button
           onClick={closeModal}
           icon="close"

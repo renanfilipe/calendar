@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider as ReduxProvider } from "react-redux";
 
+import Toast from "components/shared/Toast/Toast";
+
 import Main from "./Main";
 import reducers from "./reducers";
 import reportWebVitals from "./reportWebVitals";
@@ -9,11 +11,13 @@ import getStore from "./store/getStore";
 
 // import main sass file
 import "./sass/app.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.render(
   <React.StrictMode>
     <ReduxProvider store={getStore(reducers)}>
       <Main />
+      <Toast />
     </ReduxProvider>
   </React.StrictMode>,
   document.getElementById("root")

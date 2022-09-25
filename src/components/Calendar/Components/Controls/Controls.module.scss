@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 8px;
+  justify-content: space-between;
 }
 
 .right-button {
@@ -10,4 +11,8 @@
 
 .title {
   margin-left: 16px;
+}
+
+.left-side {
+  display: flex;
 }

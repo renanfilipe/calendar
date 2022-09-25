@@ -32,7 +32,15 @@ function Button({ icon, alt, children, variant, className, ...rest }) {
 
 Button.propTypes = {
   icon: oneOf(["close", "chevronLeft", "chevronRight"]),
-  variant: oneOf(["ghost", "primary", "secondary", "light"]),
+  variant: oneOf([
+    "danger",
+    "ghost",
+    "light",
+    "primary",
+    "secondary",
+    "secondary",
+    "success",
+  ]),
   alt: string,
   children: any,
 };

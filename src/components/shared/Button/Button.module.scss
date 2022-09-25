@@ -19,6 +19,18 @@
   }
 }
 
+.secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+
+  &:hover {
+    color: #fff;
+    background-color: #5a6268;
+    border-color: #545b62;
+  }
+}
+
 .danger {
   color: #fff;
   background-color: #dc3545;
@@ -42,6 +54,19 @@
     border-color: #dae0e5;
   }
 }
+
+.success {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+
+  &:hover {
+    color: #fff;
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+}
+
 
 .ghost {
   background-color: transparent;

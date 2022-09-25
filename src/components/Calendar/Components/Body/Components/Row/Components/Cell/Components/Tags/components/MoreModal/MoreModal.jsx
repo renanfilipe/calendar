@@ -30,22 +30,26 @@ function MoreModal({ isOpen, closeModal, day, month, year, reminders }) {
 
   return (
     <Fragment>
-      <Modal isOpen={isOpen} closeModal={closeModal} header={header}>
-        {reminders.map((reminder, index) => (
-          <Tag
-            key={reminder.id}
-            content={reminder.content}
-            className={classnames(index !== 0 && styles.tag)}
-            onClick={handleTagClick(reminder)}
-          />
-        ))}
-      </Modal>
-      <DetailsModal
-        isOpen={isDetailsModalOpen}
-        closeModal={handleCloseDetailsModal}
-        reminder={selectedReminder}
-        monthPlusDay={monthPlusDay}
-      />
+      {isOpen && (
+        <Modal isOpen={isOpen} closeModal={closeModal} header={header}>
+          {reminders.map((reminder, index) => (
+            <Tag
+              key={reminder.id}
+              content={reminder.content}
+              className={classnames(index !== 0 && styles.tag)}
+              onClick={handleTagClick(reminder)}
+            />
+          ))}
+        </Modal>
+      )}
+      {isDetailsModalOpen && (
+        <DetailsModal
+          isOpen={isDetailsModalOpen}
+          closeModal={handleCloseDetailsModal}
+          reminder={selectedReminder}
+          monthPlusDay={monthPlusDay}
+        />
+      )}
     </Fragment>
   );
 }
