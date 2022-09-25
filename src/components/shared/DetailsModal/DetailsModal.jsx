@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 
 import Button from "components/shared/Button/Button";
+import ConfirmModal from "components/shared/ConfirmModal/ConfirmModal";
 import Modal from "components/shared/Modal/Modal";
 import useModal from "components/shared/Modal/useModal";
 import ReminderModal from "components/shared/ReminderModal/ReminderModal";
@@ -15,8 +16,19 @@ function DetailsModal({ reminder, isOpen, closeModal, monthPlusDay }) {
     handleReminderModalOpen,
   } = useModal("ReminderModal");
 
+  const {
+    isConfirmModalOpen,
+    handleConfirmModalClose,
+    handleConfirmModalOpen,
+  } = useModal("ConfirmModal");
+
   function handleEdit() {
     handleReminderModalOpen();
+  }
+
+  function handleDelete() {
+    handleConfirmModalClose();
+    closeModal();
   }
 
   const { content, city, date } = reminder;
@@ -25,7 +37,11 @@ function DetailsModal({ reminder, isOpen, closeModal, monthPlusDay }) {
       <Button onClick={handleEdit} variant="primary">
         Edit
       </Button>
-      <Button onClick={() => {}} variant="danger" className={styles.button}>
+      <Button
+        onClick={handleConfirmModalOpen}
+        variant="danger"
+        className={styles.button}
+      >
         Delete
       </Button>
     </div>
@@ -44,6 +60,15 @@ function DetailsModal({ reminder, isOpen, closeModal, monthPlusDay }) {
           content={content}
           city={city}
           date={date}
+        />
+      )}
+      {isConfirmModalOpen && (
+        <ConfirmModal
+          isOpen={isConfirmModalOpen}
+          closeModal={handleConfirmModalClose}
+          onConfirm={handleDelete}
+          message="Are you sure you want to delete it?"
+          className={styles.modal}
         />
       )}
     </Fragment>
