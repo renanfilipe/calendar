@@ -6,6 +6,7 @@ import ConfirmModal from "components/shared/ConfirmModal/ConfirmModal";
 import Modal from "components/shared/Modal/Modal";
 import useModal from "components/shared/Modal/useModal";
 import ReminderModal from "components/shared/ReminderModal/ReminderModal";
+import { toast } from "components/shared/Toast/Toast";
 import { object, bool, func, array } from "prop-types";
 import useCalendarActions from "reducers/calendar/actions";
 import { getActiveDay } from "reducers/calendar/selectors";
@@ -45,6 +46,7 @@ function DetailsModal({ reminder, isOpen, closeModal, closeOtherModals }) {
       ...reminder,
       date: new Date(...reminder.date.split("-")),
     });
+    toast("Reminder removed successfully!", { type: "success" });
     handleConfirmModalClose();
     closeModal();
     closeOtherModals.forEach((func) => func());

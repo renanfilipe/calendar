@@ -55,7 +55,10 @@ function ReminderModal({
     } else {
       addReminder(payload);
     }
-    toast("Saved!", { type: "success" });
+    toast(`Reminder ${isEditMode ? "updated" : "created"} successfully!`, {
+      type: "success",
+    });
+
     closeModal();
     closeOtherModals.forEach((func) => func());
   }

@@ -5,9 +5,13 @@ import Body from "./components/Body/Body";
 import Controls from "./components/Controls/Controls";
 import Header from "./components/Header/Header";
 
+const todaysDate = new Date();
+const initialYear = todaysDate.getFullYear();
+const initialMonth = todaysDate.getMonth();
+
 function Calendar() {
-  const [month, setMonth] = useState(0);
-  const [year, setYear] = useState(2022);
+  const [month, setMonth] = useState(initialMonth);
+  const [year, setYear] = useState(initialYear);
 
   return (
     <div>

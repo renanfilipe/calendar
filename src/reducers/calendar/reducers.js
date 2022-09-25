@@ -3,73 +3,8 @@ import omit from "lodash/omit";
 import constants from "./constants";
 
 const defaultState = {
-  activeDay: "",
-  reminders: {
-    "2022-0-3": {
-      8: [
-        {
-          id: "2022-0-3 8:00 1",
-          content: "2022-0-3 8:00 1",
-          city: "Washington",
-          date: "2022-0-3-8",
-        },
-        {
-          id: "2022-0-3 8:00 2",
-          content: "2022-0-3 8:00 2",
-          city: "Washington",
-          date: "2022-0-3-8",
-        },
-      ],
-      9: [
-        {
-          id: "2022-0-3 9:00 1",
-          content: "2022-0-3 9:00 1",
-          city: "New York",
-          date: "2022-0-3-9",
-        },
-      ],
-      10: [
-        {
-          id: "2022-0-3 10:00 1",
-          content: "2022-0-3 10:00 1",
-          city: "Salem",
-          date: "2022-0-3-10",
-        },
-        {
-          id: "2022-0-3 10:00 2",
-          content: "2022-0-3 10:00 2",
-          city: "Salem",
-          date: "2022-0-3-10",
-        },
-      ],
-    },
-    "2022-0-5": {
-      11: [
-        {
-          id: "2022-0-5 11:00 1",
-          content: "2022-0-5 11:00 1",
-          city: "Washington",
-          date: "2022-0-5-11",
-        },
-      ],
-      14: [
-        {
-          id: "2022-0-5 14:00 1",
-          content: "2022-0-5 14:00 1",
-          city: "New York",
-          date: "2022-0-5-14",
-        },
-      ],
-      18: [
-        {
-          id: "2022-0-5 18:00 1",
-          content: "2022-0-5 18:00 1",
-          city: "Salem",
-          date: "2022-0-5-18",
-        },
-      ],
-    },
-  },
+  activeDay: undefined,
+  reminders: {},
 };
 
 function calendar(state = defaultState, { type, payload }) {
