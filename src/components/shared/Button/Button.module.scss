@@ -5,6 +5,11 @@
   display: inline-block;
   line-height: 1.125rem;
   padding: 4px 8px;
+
+  &:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+  }
 }
 
 .primary {

@@ -1,7 +1,7 @@
 const todaysDate = new Date();
-const todaysDay = todaysDate.getUTCDate();
-const todaysMonth = todaysDate.getUTCMonth();
-const todaysYear = todaysDate.getUTCFullYear();
+const todaysDay = todaysDate.getDate();
+const todaysMonth = todaysDate.getMonth();
+const todaysYear = todaysDate.getFullYear();
 
 function isToday(day, month, year) {
   return todaysDay === day && todaysMonth === month && todaysYear === year;

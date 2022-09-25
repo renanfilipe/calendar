@@ -2,14 +2,18 @@ import React, { Fragment } from "react";
 
 import Button from "components/shared/Button/Button";
 import useModal from "components/shared/Modal/useModal";
+import ReminderModal from "components/shared/ReminderModal/ReminderModal";
 import { number, func } from "prop-types";
 
-import ReminderModal from "./components/ReminderModal/ReminderModal";
 import styles from "./Controls.module.scss";
 import getMonthNameFromNumber from "./utils/getMonthNameFromNumber";
 
 function Controls({ month, setMonth, year, setYear }) {
-  const { isOpen, handleClose, handleOpen } = useModal();
+  const {
+    isReminderModalOpen,
+    handleReminderModalClose,
+    handleReminderModalOpen,
+  } = useModal("ReminderModal");
 
   const monthName = getMonthNameFromNumber(month);
 
@@ -53,11 +57,16 @@ function Controls({ month, setMonth, year, setYear }) {
             {monthName} of {year}
           </h1>
         </div>
-        <Button onClick={handleOpen} variant="primary">
+        <Button onClick={handleReminderModalOpen} variant="primary">
           Add reminder
         </Button>
       </div>
-      {isOpen && <ReminderModal isOpen={isOpen} closeModal={handleClose} />}
+      {isReminderModalOpen && (
+        <ReminderModal
+          isOpen={isReminderModalOpen}
+          closeModal={handleReminderModalClose}
+        />
+      )}
     </Fragment>
   );
 }

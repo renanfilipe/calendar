@@ -13,7 +13,7 @@ function getNextMonthDays(date) {
       date.getDate() + i
     );
     nextDays.push({
-      day: nextDate.getUTCDate(),
+      day: nextDate.getDate(),
       month: nextDate.getMonth(),
       year: nextDate.getFullYear(),
       isCurrentMonth: false,

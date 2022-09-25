@@ -6,15 +6,15 @@ function useDetailsModal({ day, month, year }) {
   const [selectedReminder, setSelectedReminder] = useState({});
 
   const {
-    isOpen: isDetailsModalOpen,
-    handleClose: handleCloseDetailsModal,
-    handleOpen: handleOpenDetailsModal,
-  } = useModal();
+    isDetailsModalOpen,
+    handleDetailsModalClose,
+    handleDetailsModalOpen,
+  } = useModal("DetailsModal");
 
   function handleTagClick(reminder) {
     return () => {
       setSelectedReminder(reminder);
-      handleOpenDetailsModal();
+      handleDetailsModalOpen();
     };
   }
 
@@ -27,7 +27,7 @@ function useDetailsModal({ day, month, year }) {
   return {
     handleTagClick,
     isDetailsModalOpen,
-    handleCloseDetailsModal,
+    handleDetailsModalClose,
     selectedReminder,
     monthPlusDay,
   };

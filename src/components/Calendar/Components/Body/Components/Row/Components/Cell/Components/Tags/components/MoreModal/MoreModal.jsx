@@ -13,7 +13,7 @@ function MoreModal({ isOpen, closeModal, day, month, year, reminders }) {
   const {
     handleTagClick,
     isDetailsModalOpen,
-    handleCloseDetailsModal,
+    handleDetailsModalClose,
     selectedReminder,
     monthPlusDay,
   } = useDetailsModal({ day, month, year });
@@ -45,7 +45,7 @@ function MoreModal({ isOpen, closeModal, day, month, year, reminders }) {
       {isDetailsModalOpen && (
         <DetailsModal
           isOpen={isDetailsModalOpen}
-          closeModal={handleCloseDetailsModal}
+          closeModal={handleDetailsModalClose}
           reminder={selectedReminder}
           monthPlusDay={monthPlusDay}
         />

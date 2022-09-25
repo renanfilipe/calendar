@@ -14,16 +14,13 @@ function Tags({ reminders, day, month, year }) {
   const {
     handleTagClick,
     isDetailsModalOpen,
-    handleCloseDetailsModal,
+    handleDetailsModalClose,
     selectedReminder,
     monthPlusDay,
   } = useDetailsModal({ day, month, year });
 
-  const {
-    isOpen: isMoreModalOpen,
-    handleClose: handleCloseMoreModal,
-    handleOpen: handleOpenMoreModal,
-  } = useModal();
+  const { isMoreModalOpen, handleMoreModalClose, handleMoreModalOpen } =
+    useModal("MoreModal");
 
   const hasMore = reminders.length > 4;
 
@@ -42,13 +39,13 @@ function Tags({ reminders, day, month, year }) {
           content={`${reminders.length - 3} more`}
           className={styles.tag}
           color="transparent"
-          onClick={handleOpenMoreModal}
+          onClick={handleMoreModalOpen}
         />
       )}
       {isMoreModalOpen && (
         <MoreModal
           isOpen={isMoreModalOpen}
-          closeModal={handleCloseMoreModal}
+          closeModal={handleMoreModalClose}
           day={day}
           month={month}
           year={year}
@@ -58,7 +55,7 @@ function Tags({ reminders, day, month, year }) {
       {isDetailsModalOpen && (
         <DetailsModal
           isOpen={isDetailsModalOpen}
-          closeModal={handleCloseDetailsModal}
+          closeModal={handleDetailsModalClose}
           reminder={selectedReminder}
           monthPlusDay={monthPlusDay}
         />

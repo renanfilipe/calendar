@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function useModal() {
+function useModal(name) {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleClose() {
@@ -12,9 +12,9 @@ function useModal() {
   }
 
   return {
-    isOpen,
-    handleClose,
-    handleOpen,
+    [`is${name}Open`]: isOpen,
+    [`handle${name}Close`]: handleClose,
+    [`handle${name}Open`]: handleOpen,
   };
 }
 

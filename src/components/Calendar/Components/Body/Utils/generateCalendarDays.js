@@ -7,7 +7,7 @@ function generateCalendarDays(month, year) {
   const previousMonthDays = getPreviousMonthDays(date);
   const nextMonthDays = getNextMonthDays(lastMonthDayDate);
   const currentMonthDays = Array.from(
-    { length: lastMonthDayDate.getUTCDate() },
+    { length: lastMonthDayDate.getDate() },
     (_, i) => ({
       day: i + 1,
       month,

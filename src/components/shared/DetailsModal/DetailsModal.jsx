@@ -1,16 +1,28 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import Button from "components/shared/Button/Button";
 import Modal from "components/shared/Modal/Modal";
+import useModal from "components/shared/Modal/useModal";
+import ReminderModal from "components/shared/ReminderModal/ReminderModal";
 import { string } from "prop-types";
 
 import styles from "./DetailsModal.module.scss";
 
 function DetailsModal({ reminder, isOpen, closeModal, monthPlusDay }) {
-  const { content, city } = reminder;
+  const {
+    isReminderModalOpen,
+    handleReminderModalClose,
+    handleReminderModalOpen,
+  } = useModal("ReminderModal");
+
+  function handleEdit() {
+    handleReminderModalOpen();
+  }
+
+  const { content, city, date } = reminder;
   const header = (
     <div>
-      <Button onClick={() => {}} variant="primary">
+      <Button onClick={handleEdit} variant="primary">
         Edit
       </Button>
       <Button onClick={() => {}} variant="danger" className={styles.button}>
@@ -20,10 +32,21 @@ function DetailsModal({ reminder, isOpen, closeModal, monthPlusDay }) {
   );
 
   return (
-    <Modal isOpen={isOpen} closeModal={closeModal} header={header}>
-      <div>{content}</div>
-      <div>{`${monthPlusDay} - ${city}`}</div>
-    </Modal>
+    <Fragment>
+      <Modal isOpen={isOpen} closeModal={closeModal} header={header}>
+        <div>{content}</div>
+        <div>{`${monthPlusDay} - ${city}`}</div>
+      </Modal>
+      {isReminderModalOpen && (
+        <ReminderModal
+          isOpen={isReminderModalOpen}
+          closeModal={handleReminderModalClose}
+          content={content}
+          city={city}
+          date={date}
+        />
+      )}
+    </Fragment>
   );
 }
 

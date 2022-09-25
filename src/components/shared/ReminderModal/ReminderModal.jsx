@@ -1,31 +1,38 @@
 import React, { Fragment, useState } from "react";
 import DatePicker from "react-datepicker";
 
-import classnames from "classnames";
 import Button from "components/shared/Button/Button";
 import Input from "components/shared/Input/Input";
 import Modal from "components/shared/Modal/Modal";
 import { toast } from "components/shared/Toast/Toast";
+import { bool, func } from "prop-types";
 import { string } from "prop-types";
 
 import styles from "./ReminderModal.module.scss";
 
-function ReminderModal({ isOpen, closeModal }) {
-  const [content, setContent] = useState("");
-  const [date, setDate] = useState();
-  const [time, setTime] = useState();
-  const [city, setCity] = useState("");
+function ReminderModal({
+  isOpen,
+  closeModal,
+  date: initialDate,
+  city: initialCity,
+  content: initialContent,
+}) {
+  const [content, setContent] = useState(initialContent);
+  const [date, setDate] = useState(() => {
+    if (initialDate) {
+      return new Date(...initialDate.split("-"));
+    }
+  });
+  const [city, setCity] = useState(initialCity);
 
-  function handleReminderChange(event) {
+  const canSave = !!content && !!date && !!city;
+
+  function handleContentChange(event) {
     setContent(event.target.value);
   }
 
   function handleDateChange(date) {
     setDate(date);
-  }
-
-  function handleTimeChange(time) {
-    setTime(time);
   }
 
   function handleCityChange(event) {
@@ -37,13 +44,18 @@ function ReminderModal({ isOpen, closeModal }) {
     closeModal();
   }
 
-  const header = <h3>Add a reminder</h3>;
+  const header = <h3>{initialContent ? "Edit" : "Add"} reminder</h3>;
   const footer = (
     <Fragment>
       <Button onClick={closeModal} variant="secondary">
         Cancel
       </Button>
-      <Button onClick={handleSave} className={styles.button} variant="success">
+      <Button
+        onClick={handleSave}
+        className={styles.button}
+        variant="success"
+        disabled={!canSave}
+      >
         Save
       </Button>
     </Fragment>
@@ -57,7 +69,7 @@ function ReminderModal({ isOpen, closeModal }) {
       footer={footer}
       className={styles.modal}
     >
-      <Input label="Reminder" onChange={handleReminderChange} value={content} />
+      <Input label="Content" onChange={handleContentChange} value={content} />
       <Input label="Date">
         <DatePicker
           selected={date}
@@ -67,8 +79,8 @@ function ReminderModal({ isOpen, closeModal }) {
       </Input>
       <Input label="Time">
         <DatePicker
-          selected={time}
-          onChange={handleTimeChange}
+          selected={date}
+          onChange={handleDateChange}
           showTimeSelect
           showTimeSelectOnly
           timeIntervals="60"
@@ -82,7 +94,17 @@ function ReminderModal({ isOpen, closeModal }) {
 }
 
 ReminderModal.propTypes = {
+  isOpen: bool.isRequired,
+  closeModal: func.isRequired,
+  date: string,
+  city: string,
   content: string,
+};
+
+ReminderModal.defaultProps = {
+  date: undefined,
+  city: "",
+  content: "",
 };
 
 export default ReminderModal;
