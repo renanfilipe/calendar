@@ -1,15 +1,17 @@
 import React, { Fragment, useState } from "react";
-import DatePicker from "react-datepicker";
 
 import Button from "components/shared/Button/Button";
+import DatePicker from "components/shared/DatePicker/DatePicker";
 import Input from "components/shared/Input/Input";
 import Modal from "components/shared/Modal/Modal";
+import Select from "components/shared/Select/Select";
 import { toast } from "components/shared/Toast/Toast";
 import { bool, func, array } from "prop-types";
 import { string } from "prop-types";
 import useCalendarActions from "reducers/calendar/actions";
 
 import styles from "./ReminderModal.module.scss";
+import loadCityOptions from "./utils/loadCityOptions";
 
 function ReminderModal({
   isOpen,
@@ -27,7 +29,9 @@ function ReminderModal({
       return new Date(...initialDate.split("-"));
     }
   });
-  const [city, setCity] = useState(initialCity);
+  const [city, setCity] = useState(
+    initialCity ? { value: initialCity, label: initialCity } : undefined
+  );
 
   const isEditMode = !!initialContent;
   const canSave = !!content && !!date && !!city;
@@ -40,8 +44,8 @@ function ReminderModal({
     setDate(date);
   }
 
-  function handleCityChange(event) {
-    setCity(event.target.value);
+  function handleCityChange(data) {
+    setCity(data.value);
   }
 
   function handleSave() {
@@ -89,38 +93,26 @@ function ReminderModal({
       className={styles.modal}
     >
       <Input label="Content" onChange={handleContentChange} value={content} />
-      <Input label="Date" className={styles.input}>
-        <DatePicker
-          selected={date}
-          onChange={handleDateChange}
-          timeIntervals="60"
-          disabled={isEditMode}
-        />
-      </Input>
-      <Input label="Time" className={styles.input}>
-        <DatePicker
-          selected={date}
-          onChange={handleDateChange}
-          showTimeSelect
-          showTimeSelectOnly
-          timeIntervals="60"
-          timeCaption="Time"
-          dateFormat="h:mm aa"
-          disabled={isEditMode}
-          popperModifiers={[
-            {
-              name: "offset",
-              options: {
-                offset: [50, 0],
-              },
-            },
-          ]}
-        />
-      </Input>
-      <Input
+      <DatePicker
+        label="Date"
+        selected={date}
+        onChange={handleDateChange}
+        disabled={isEditMode}
+        className={styles.input}
+      />
+      <DatePicker
+        label="Time"
+        className={styles.input}
+        selected={date}
+        onChange={handleDateChange}
+        showTimeSelectOnly
+        disabled={isEditMode}
+      />
+      <Select
         label="City"
         onChange={handleCityChange}
-        value={city}
+        loadOptions={loadCityOptions}
+        defaultValue={city}
         className={styles.input}
       />
     </Modal>

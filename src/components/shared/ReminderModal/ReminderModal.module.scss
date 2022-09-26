@@ -9,3 +9,13 @@
 .input {
   margin-top: 8px;
 }
+
+.city {
+  label {
+    width: 100%;
+  }
+
+  input {
+    min-height: initial;
+  }
+}

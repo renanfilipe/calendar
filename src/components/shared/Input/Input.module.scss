@@ -1,5 +1,6 @@
 .input {
   display: flex;
+  position: relative;
 
   input {
     border-color: #cccccc;
@@ -16,7 +17,28 @@
       border-width: 2px;
       outline: 0;
     }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
+}
+
+.error {
+  input {
+    border-color: #dc3545;
+
+    &:focus {
+      border-color: #dc3545;
+    }
+  }
+}
+
+.error-message {
+  color: #dc3545;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
 }
 
 .label {
