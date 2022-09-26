@@ -2,34 +2,24 @@ import React from "react";
 
 import classnames from "classnames";
 import DetailsModal from "components/shared/DetailsModal/DetailsModal";
-import useDetailsModal from "components/shared/DetailsModal/useDetailsModal";
-import useModal from "components/shared/Modal/useModal";
 import Tag from "components/shared/Tag/Tag";
 import { string, arrayOf, shape } from "prop-types";
-import useCalendarActions from "reducers/calendar/actions";
 
 import MoreModal from "./components/MoreModal/MoreModal";
 import styles from "./Tags.module.scss";
+import useTags from "./useTags";
 
 function Tags({ reminders }) {
-  const { setActiveDay } = useCalendarActions();
-
   const {
-    handleTagClick,
-    isDetailsModalOpen,
     handleDetailsModalClose,
+    handleMoreClick,
+    handleMoreModalClose,
+    handleTagClick,
+    hasMore,
+    isDetailsModalOpen,
+    isMoreModalOpen,
     selectedReminder,
-  } = useDetailsModal();
-
-  const { isMoreModalOpen, handleMoreModalClose, handleMoreModalOpen } =
-    useModal("MoreModal");
-
-  function handleMoreClick() {
-    setActiveDay(reminders[0].date);
-    handleMoreModalOpen();
-  }
-
-  const hasMore = reminders.length > 4;
+  } = useTags(reminders);
 
   return (
     <div className={styles.tags}>
@@ -58,7 +48,6 @@ function Tags({ reminders }) {
       )}
       {isDetailsModalOpen && (
         <DetailsModal
-          isOpen={isDetailsModalOpen}
           closeModal={handleDetailsModalClose}
           reminder={selectedReminder}
         />

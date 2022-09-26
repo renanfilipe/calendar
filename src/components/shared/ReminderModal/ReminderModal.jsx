@@ -1,71 +1,30 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 
 import Button from "components/shared/Button/Button";
 import DatePicker from "components/shared/DatePicker/DatePicker";
 import Input from "components/shared/Input/Input";
 import Modal from "components/shared/Modal/Modal";
 import Select from "components/shared/Select/Select";
-import { toast } from "components/shared/Toast/Toast";
-import { bool, func, array } from "prop-types";
+import { func, array } from "prop-types";
 import { string } from "prop-types";
-import useCalendarActions from "reducers/calendar/actions";
 
 import styles from "./ReminderModal.module.scss";
+import useReminderModal from "./useReminderModal";
 import loadCityOptions from "./utils/loadCityOptions";
 
-function ReminderModal({
-  isOpen,
-  closeModal,
-  id,
-  date: initialDate,
-  city: initialCity,
-  content: initialContent,
-  closeOtherModals,
-}) {
-  const { addReminder, editReminder } = useCalendarActions();
-  const [content, setContent] = useState(initialContent);
-  const [date, setDate] = useState(() => {
-    if (initialDate) {
-      return new Date(...initialDate.split("-"));
-    }
-  });
-  const [city, setCity] = useState(
-    initialCity ? { value: initialCity, label: initialCity } : undefined
-  );
-
-  const isEditMode = !!initialContent;
-  const canSave = !!content && !!date && !!city;
-
-  function handleContentChange(event) {
-    setContent(event.target.value);
-  }
-
-  function handleDateChange(date) {
-    setDate(date);
-  }
-
-  function handleCityChange(data) {
-    setCity(data.value);
-  }
-
-  function handleSave() {
-    const payload = {
-      content,
-      city,
-      date,
-    };
-    if (isEditMode) {
-      editReminder({ id, ...payload });
-    } else {
-      addReminder(payload);
-    }
-    toast(`Reminder ${isEditMode ? "updated" : "created"} successfully!`, {
-      type: "success",
-    });
-
-    closeModal();
-    closeOtherModals.forEach((func) => func());
-  }
+function ReminderModal(props) {
+  const { closeModal } = props;
+  const {
+    canSave,
+    city,
+    content,
+    date,
+    handleCityChange,
+    handleContentChange,
+    handleDateChange,
+    handleSave,
+    isEditMode,
+  } = useReminderModal(props);
 
   const header = <h3>{isEditMode ? "Edit" : "Add"} reminder</h3>;
   const footer = (
@@ -86,7 +45,6 @@ function ReminderModal({
 
   return (
     <Modal
-      isOpen={isOpen}
       closeModal={closeModal}
       header={header}
       footer={footer}
@@ -120,7 +78,6 @@ function ReminderModal({
 }
 
 ReminderModal.propTypes = {
-  isOpen: bool.isRequired,
   closeModal: func.isRequired,
   date: string,
   city: string,

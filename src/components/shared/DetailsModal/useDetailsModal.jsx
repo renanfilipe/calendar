@@ -1,31 +1,58 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import useModal from "components/shared/Modal/useModal";
+import { toast } from "components/shared/Toast/Toast";
 import useCalendarActions from "reducers/calendar/actions";
+import { getActiveDay } from "reducers/calendar/selectors";
 
-function useDetailsModal() {
-  const { setActiveDay } = useCalendarActions();
-  const [selectedReminder, setSelectedReminder] = useState({});
+function useDetailsModal({ reminder, closeModal, closeOtherModals }) {
+  const { removeReminder } = useCalendarActions();
+  const activeDay = useSelector(getActiveDay);
+  const formattedDate = new Date(...activeDay.split("-")).toLocaleDateString(
+    "en-US",
+    {
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+    }
+  );
 
   const {
-    isDetailsModalOpen,
-    handleDetailsModalClose,
-    handleDetailsModalOpen,
-  } = useModal("DetailsModal");
+    isReminderModalOpen,
+    handleReminderModalClose,
+    handleReminderModalOpen,
+  } = useModal("ReminderModal");
 
-  function handleTagClick(reminder) {
-    return () => {
-      setActiveDay(reminder.date);
-      setSelectedReminder(reminder);
-      handleDetailsModalOpen();
-    };
+  const {
+    isConfirmModalOpen,
+    handleConfirmModalClose,
+    handleConfirmModalOpen,
+  } = useModal("ConfirmModal");
+
+  function handleEdit() {
+    handleReminderModalOpen();
+  }
+
+  function handleDelete() {
+    removeReminder({
+      ...reminder,
+      date: new Date(...reminder.date.split("-")),
+    });
+    toast("Reminder removed successfully!", { type: "success" });
+    handleConfirmModalClose();
+    closeModal();
+    closeOtherModals.forEach((func) => func());
   }
 
   return {
-    handleTagClick,
-    isDetailsModalOpen,
-    handleDetailsModalClose,
-    selectedReminder,
+    formattedDate,
+    handleConfirmModalClose,
+    handleConfirmModalOpen,
+    handleDelete,
+    handleEdit,
+    handleReminderModalClose,
+    isConfirmModalOpen,
+    isReminderModalOpen,
   };
 }
 

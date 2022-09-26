@@ -1,40 +1,20 @@
 import React, { Fragment } from "react";
 
 import Button from "components/shared/Button/Button";
-import useModal from "components/shared/Modal/useModal";
 import ReminderModal from "components/shared/ReminderModal/ReminderModal";
 import { number, func } from "prop-types";
 
 import styles from "./Controls.module.scss";
-import getMonthNameFromNumber from "./utils/getMonthNameFromNumber";
+import useControls from "./useControls";
 
-function Controls({ month, setMonth, year, setYear }) {
+function Controls({ year, ...props }) {
   const {
-    isReminderModalOpen,
+    handleMonthClick,
     handleReminderModalClose,
     handleReminderModalOpen,
-  } = useModal("ReminderModal");
-
-  const monthName = getMonthNameFromNumber(month);
-
-  function handleMonthClick(direction) {
-    return () => {
-      const newMonth = direction === "prev" ? month - 1 : month + 1;
-      if (newMonth < 0) {
-        setMonth(11);
-        setYear((state) => state - 1);
-        return;
-      }
-
-      if (newMonth > 11) {
-        setMonth(0);
-        setYear((state) => state + 1);
-        return;
-      }
-
-      setMonth(newMonth);
-    };
-  }
+    isReminderModalOpen,
+    monthName,
+  } = useControls(props);
 
   return (
     <Fragment>
@@ -62,10 +42,7 @@ function Controls({ month, setMonth, year, setYear }) {
         </Button>
       </div>
       {isReminderModalOpen && (
-        <ReminderModal
-          isOpen={isReminderModalOpen}
-          closeModal={handleReminderModalClose}
-        />
+        <ReminderModal closeModal={handleReminderModalClose} />
       )}
     </Fragment>
   );
