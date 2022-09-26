@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 
 import classnames from "classnames";
 import { number, bool } from "prop-types";
@@ -9,7 +9,7 @@ import styles from "./Cell.module.scss";
 import Tags from "./components/Tags/Tags";
 
 function Cell({ day, month, year, isWeekend, isCurrentMonth, isToday }) {
-  const reminders = useSelector(getReminders(day, month, year));
+  const reminders = useSelector(getReminders(day, month, year), shallowEqual);
 
   const className = classnames([
     styles.cell,
@@ -36,4 +36,4 @@ Cell.propTypes = {
 
 Cell.defaultProps = {};
 
-export default Cell;
+export default React.memo(Cell);

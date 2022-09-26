@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useSelector } from "react-redux";
 
 import useModal from "components/shared/Modal/useModal";
@@ -29,11 +30,11 @@ function useDetailsModal({ reminder, closeModal, closeOtherModals }) {
     handleConfirmModalOpen,
   } = useModal("ConfirmModal");
 
-  function handleEdit() {
+  const handleEdit = useCallback(() => {
     handleReminderModalOpen();
-  }
+  }, [handleReminderModalOpen]);
 
-  function handleDelete() {
+  const handleDelete = useCallback(() => {
     removeReminder({
       ...reminder,
       date: new Date(...reminder.date.split("-")),
@@ -42,7 +43,13 @@ function useDetailsModal({ reminder, closeModal, closeOtherModals }) {
     handleConfirmModalClose();
     closeModal();
     closeOtherModals.forEach((func) => func());
-  }
+  }, [
+    closeModal,
+    closeOtherModals,
+    handleConfirmModalClose,
+    reminder,
+    removeReminder,
+  ]);
 
   return {
     formattedDate,

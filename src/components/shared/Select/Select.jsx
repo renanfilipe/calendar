@@ -24,4 +24,4 @@ Select.defaultProps = {
   className: undefined,
 };
 
-export default Select;
+export default React.memo(Select);

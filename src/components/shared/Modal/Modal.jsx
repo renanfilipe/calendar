@@ -35,4 +35,4 @@ Modal.propTypes = {
   footer: oneOfType([node, string]),
 };
 
-export default Modal;
+export default React.memo(Modal);

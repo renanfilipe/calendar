@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 
 import classnames from "classnames";
 import DetailsModal from "components/shared/DetailsModal/DetailsModal";
@@ -9,7 +9,7 @@ import { string } from "prop-types";
 import styles from "./MoreModal.module.scss";
 import useMoreModal from "./useMoreModal";
 
-function MoreModal({ isOpen, closeModal, reminders }) {
+function MoreModal({ closeModal, reminders }) {
   const {
     formattedDate,
     handleDetailsModalClose,
@@ -20,27 +20,28 @@ function MoreModal({ isOpen, closeModal, reminders }) {
     weekday,
   } = useMoreModal();
 
-  const header = (
-    <div className={styles.header}>
-      <h4 className={styles.weekday}>{weekday}</h4>
-      <h3 className={styles["month-plus-day"]}>{formattedDate}</h3>
-    </div>
+  const header = useMemo(
+    () => (
+      <div className={styles.header}>
+        <h4 className={styles.weekday}>{weekday}</h4>
+        <h3 className={styles["month-plus-day"]}>{formattedDate}</h3>
+      </div>
+    ),
+    [formattedDate, weekday]
   );
 
   return (
     <Fragment>
-      {isOpen && (
-        <Modal isOpen={isOpen} closeModal={closeModal} header={header}>
-          {reminders.map((reminder, index) => (
-            <Tag
-              key={reminder.id}
-              content={reminder.content}
-              className={classnames(index !== 0 && styles.tag)}
-              onClick={handleTagClick(reminder)}
-            />
-          ))}
-        </Modal>
-      )}
+      <Modal closeModal={closeModal} header={header}>
+        {reminders.map((reminder, index) => (
+          <Tag
+            key={reminder.id}
+            content={reminder.content}
+            className={classnames(index !== 0 && styles.tag)}
+            onClick={handleTagClick(reminder)}
+          />
+        ))}
+      </Modal>
       {isDetailsModalOpen && (
         <DetailsModal
           closeModal={handleDetailsModalClose}
@@ -57,4 +58,4 @@ MoreModal.propTypes = {
   content: string,
 };
 
-export default MoreModal;
+export default React.memo(MoreModal);

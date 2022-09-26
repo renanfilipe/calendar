@@ -52,7 +52,6 @@ function DetailsModal({ reminder, closeModal, closeOtherModals }) {
       )}
       {isConfirmModalOpen && (
         <ConfirmModal
-          isOpen={isConfirmModalOpen}
           closeModal={handleConfirmModalClose}
           onConfirm={handleDelete}
           message="Are you sure you want to delete it?"

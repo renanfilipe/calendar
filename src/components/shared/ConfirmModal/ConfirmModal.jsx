@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 
 import Button from "components/shared/Button/Button";
 import Modal from "components/shared/Modal/Modal";
@@ -6,25 +6,23 @@ import { string, bool, func } from "prop-types";
 
 import styles from "./ConfirmModal.module.scss";
 
-function ConfirmModal({ isOpen, closeModal, onConfirm, message, className }) {
-  const footer = (
-    <Fragment>
-      <Button onClick={closeModal} variant="secondary">
-        No
-      </Button>
-      <Button onClick={onConfirm} className={styles.button} variant="primary">
-        Yes
-      </Button>
-    </Fragment>
+function ConfirmModal({ closeModal, onConfirm, message, className }) {
+  const footer = useMemo(
+    () => (
+      <Fragment>
+        <Button onClick={closeModal} variant="secondary">
+          No
+        </Button>
+        <Button onClick={onConfirm} className={styles.button} variant="primary">
+          Yes
+        </Button>
+      </Fragment>
+    ),
+    [closeModal, onConfirm]
   );
 
   return (
-    <Modal
-      isOpen={isOpen}
-      closeModal={closeModal}
-      footer={footer}
-      className={className}
-    >
+    <Modal closeModal={closeModal} footer={footer} className={className}>
       {message}
     </Modal>
   );
@@ -42,4 +40,4 @@ ConfirmModal.defaultProps = {
   className: undefined,
 };
 
-export default ConfirmModal;
+export default React.memo(ConfirmModal);

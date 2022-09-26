@@ -40,4 +40,4 @@ Input.defaultProps = {
   errorMessage: undefined,
 };
 
-export default Input;
+export default React.memo(Input);

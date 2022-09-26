@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import { toast } from "components/shared/Toast/Toast";
 import useCalendarActions from "reducers/calendar/actions";
@@ -13,11 +13,10 @@ function useReminderModal({
 }) {
   const { addReminder, editReminder } = useCalendarActions();
   const [content, setContent] = useState(initialContent);
-  const [date, setDate] = useState(() => {
-    if (initialDate) {
-      return new Date(...initialDate.split("-"));
-    }
-  });
+  const [date, setDate] = useState(
+    initialDate ? new Date(...initialDate.split("-")) : undefined
+  );
+
   const [city, setCity] = useState(
     initialCity ? { value: initialCity, label: initialCity } : undefined
   );
@@ -25,17 +24,17 @@ function useReminderModal({
   const isEditMode = !!initialContent;
   const canSave = !!content && !!date && !!city;
 
-  function handleContentChange(event) {
+  const handleContentChange = useCallback((event) => {
     setContent(event.target.value);
-  }
+  }, []);
 
-  function handleDateChange(date) {
+  const handleDateChange = useCallback((date) => {
     setDate(date);
-  }
+  }, []);
 
-  function handleCityChange(data) {
+  const handleCityChange = useCallback((data) => {
     setCity(data);
-  }
+  }, []);
 
   function handleSave() {
     const payload = {

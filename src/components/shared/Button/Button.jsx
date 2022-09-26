@@ -50,4 +50,4 @@ Button.defaultProps = {
   alt: undefined,
 };
 
-export default Button;
+export default React.memo(Button);

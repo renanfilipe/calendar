@@ -40,11 +40,7 @@ function Tags({ reminders }) {
         />
       )}
       {isMoreModalOpen && (
-        <MoreModal
-          isOpen={isMoreModalOpen}
-          closeModal={handleMoreModalClose}
-          reminders={reminders}
-        />
+        <MoreModal closeModal={handleMoreModalClose} reminders={reminders} />
       )}
       {isDetailsModalOpen && (
         <DetailsModal

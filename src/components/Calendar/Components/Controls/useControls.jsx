@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 import useModal from "components/shared/Modal/useModal";
 
 import getMonthNameFromNumber from "./utils/getMonthNameFromNumber";
@@ -11,9 +13,8 @@ function useControls({ month, setMonth, setYear }) {
 
   const monthName = getMonthNameFromNumber(month);
 
-  function handleMonthClick(direction) {
-    return () => {
-      const newMonth = direction === "prev" ? month - 1 : month + 1;
+  const calculateMonth = useCallback(
+    (newMonth) => {
       if (newMonth < 0) {
         setMonth(11);
         setYear((state) => state - 1);
@@ -27,11 +28,21 @@ function useControls({ month, setMonth, setYear }) {
       }
 
       setMonth(newMonth);
-    };
-  }
+    },
+    [setMonth, setYear]
+  );
+
+  const handlePrevClick = useCallback(() => {
+    calculateMonth(month - 1);
+  }, [calculateMonth, month]);
+
+  const handleNextClick = useCallback(() => {
+    calculateMonth(month + 1);
+  }, [calculateMonth, month]);
 
   return {
-    handleMonthClick,
+    handleNextClick,
+    handlePrevClick,
     handleReminderModalClose,
     handleReminderModalOpen,
     isReminderModalOpen,

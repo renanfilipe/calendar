@@ -21,4 +21,4 @@ Tag.propTypes = {
   content: string.isRequired,
 };
 
-export default Tag;
+export default React.memo(Tag);

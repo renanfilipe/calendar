@@ -9,7 +9,8 @@ import useControls from "./useControls";
 
 function Controls({ year, ...props }) {
   const {
-    handleMonthClick,
+    handleNextClick,
+    handlePrevClick,
     handleReminderModalClose,
     handleReminderModalOpen,
     isReminderModalOpen,
@@ -21,13 +22,13 @@ function Controls({ year, ...props }) {
       <div className={styles.controls}>
         <div className={styles["left-side"]}>
           <Button
-            onClick={handleMonthClick("prev")}
+            onClick={handlePrevClick}
             icon="chevronLeft"
             alt="previous month"
             variant="light"
           />
           <Button
-            onClick={handleMonthClick("next")}
+            onClick={handleNextClick}
             icon="chevronRight"
             alt="next month"
             className={styles["right-button"]}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import { number } from "prop-types";
 
@@ -10,7 +10,7 @@ const numberOfRows = 5;
 const numberOfDaysInAWeek = 7;
 
 function Body({ month, year }) {
-  const data = generateCalendarDays(month, year);
+  const data = useMemo(() => generateCalendarDays(month, year), [month, year]);
 
   function renderRows() {
     const rows = [];
@@ -39,4 +39,4 @@ Body.propTypes = {
   year: number.isRequired,
 };
 
-export default Body;
+export default React.memo(Body);

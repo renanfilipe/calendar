@@ -30,4 +30,4 @@ DatePicker.propTypes = {
   className: string.isRequired,
 };
 
-export default DatePicker;
+export default React.memo(DatePicker);

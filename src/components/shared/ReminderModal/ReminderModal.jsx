@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 
 import Button from "components/shared/Button/Button";
 import DatePicker from "components/shared/DatePicker/DatePicker";
@@ -26,21 +26,28 @@ function ReminderModal(props) {
     isEditMode,
   } = useReminderModal(props);
 
-  const header = <h3>{isEditMode ? "Edit" : "Add"} reminder</h3>;
-  const footer = (
-    <Fragment>
-      <Button onClick={closeModal} variant="secondary">
-        Cancel
-      </Button>
-      <Button
-        onClick={handleSave}
-        className={styles.button}
-        variant="success"
-        disabled={!canSave}
-      >
-        Save
-      </Button>
-    </Fragment>
+  const header = useMemo(
+    () => <h3>{isEditMode ? "Edit" : "Add"} reminder</h3>,
+    [isEditMode]
+  );
+
+  const footer = useMemo(
+    () => (
+      <Fragment>
+        <Button onClick={closeModal} variant="secondary">
+          Cancel
+        </Button>
+        <Button
+          onClick={handleSave}
+          className={styles.button}
+          variant="success"
+          disabled={!canSave}
+        >
+          Save
+        </Button>
+      </Fragment>
+    ),
+    [canSave, closeModal, handleSave]
   );
 
   return (
