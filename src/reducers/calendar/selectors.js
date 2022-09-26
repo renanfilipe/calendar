@@ -9,7 +9,3 @@ export function getReminders(day, month, year) {
     );
   };
 }
-
-export function getActiveDay({ calendar }) {
-  return calendar.activeDay;
-}

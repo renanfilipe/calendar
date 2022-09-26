@@ -3,6 +3,7 @@ import omit from "lodash/omit";
 import constants from "./constants";
 
 const defaultState = {
+  isLoadingWeather: false,
   activeDay: undefined,
   reminders: {},
 };
@@ -114,6 +115,16 @@ function calendar(state = defaultState, { type, payload }) {
             ),
           },
         },
+      };
+    case constants.IS_LOADING_WEATHER:
+      return {
+        ...state,
+        isLoadingWeather: true,
+      };
+    case constants.IS_LOADING_WEATHER_DONE:
+      return {
+        ...state,
+        isLoadingWeather: false,
       };
     default:
       return state;

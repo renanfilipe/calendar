@@ -21,7 +21,8 @@ function DetailsModal({ reminder, closeModal, closeOtherModals }) {
     isReminderModalOpen,
   } = useDetailsModal({ reminder, closeModal, closeOtherModals });
 
-  const { content, city } = reminder || {};
+  const { content, city, weather } = reminder || {};
+  const { description, conditions } = weather || {};
   const header = (
     <div>
       <Button onClick={handleEdit} variant="primary">
@@ -42,6 +43,7 @@ function DetailsModal({ reminder, closeModal, closeOtherModals }) {
       <Modal closeModal={closeModal} header={header}>
         <div>{content}</div>
         <div>{`${formattedDate} - ${city}`}</div>
+        <div>{`${conditions} - ${description}`}</div>
       </Modal>
       {isReminderModalOpen && (
         <ReminderModal

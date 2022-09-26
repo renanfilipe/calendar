@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useSelector } from "react-redux";
 
 import { toast } from "components/shared/Toast/Toast";
 import useCalendarActions from "reducers/calendar/actions";
@@ -12,6 +13,9 @@ function useReminderModal({
   closeOtherModals,
 }) {
   const { addReminder, editReminder } = useCalendarActions();
+  const isLoadingWeather = useSelector(
+    ({ calendar }) => calendar.isLoadingWeather
+  );
   const [content, setContent] = useState(initialContent);
   const [date, setDate] = useState(
     initialDate ? new Date(...initialDate.split("-")) : undefined
@@ -42,17 +46,28 @@ function useReminderModal({
       city: city.value,
       date,
     };
-    if (isEditMode) {
-      editReminder({ id, ...payload });
-    } else {
-      addReminder(payload);
-    }
-    toast(`Reminder ${isEditMode ? "updated" : "created"} successfully!`, {
-      type: "success",
-    });
 
-    closeModal();
-    closeOtherModals.forEach((func) => func());
+    function closeAllModals() {
+      closeModal();
+      closeOtherModals.forEach((func) => func());
+    }
+
+    function handleSuccess() {
+      toast(`Reminder ${isEditMode ? "updated" : "created"} successfully!`, {
+        type: "success",
+      });
+      closeAllModals();
+    }
+
+    function handleFailure() {
+      closeAllModals();
+    }
+
+    if (isEditMode) {
+      editReminder({ id, ...payload }, handleSuccess, handleFailure);
+    } else {
+      addReminder(payload, handleSuccess, handleFailure);
+    }
   }
 
   return {
@@ -65,6 +80,7 @@ function useReminderModal({
     handleDateChange,
     handleSave,
     isEditMode,
+    isLoadingWeather,
   };
 }
 

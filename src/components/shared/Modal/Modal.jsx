@@ -10,9 +10,15 @@ import styles from "./Modal.module.scss";
 
 ReactModal.setAppElement("#root");
 
-function Modal({ closeModal, children, header, footer, className }) {
+function Modal({ closeModal, children, header, footer, className, isLoading }) {
   return (
-    <ReactModal isOpen onRequestClose={closeModal} style={customStyles}>
+    <ReactModal
+      isOpen
+      onRequestClose={closeModal}
+      style={customStyles}
+      shouldCloseOnOverlayClick={!isLoading}
+      shouldCloseOnEsc={!isLoading}
+    >
       <div className={classnames(styles.modal, className)}>
         <Button
           onClick={closeModal}

@@ -4,11 +4,10 @@ import { useSelector } from "react-redux";
 import useModal from "components/shared/Modal/useModal";
 import { toast } from "components/shared/Toast/Toast";
 import useCalendarActions from "reducers/calendar/actions";
-import { getActiveDay } from "reducers/calendar/selectors";
 
 function useDetailsModal({ reminder, closeModal, closeOtherModals }) {
   const { removeReminder } = useCalendarActions();
-  const activeDay = useSelector(getActiveDay);
+  const activeDay = useSelector(({ calendar }) => calendar.activeDay);
   const formattedDate = new Date(...activeDay.split("-")).toLocaleDateString(
     "en-US",
     {

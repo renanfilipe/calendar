@@ -24,6 +24,7 @@ function ReminderModal(props) {
     handleDateChange,
     handleSave,
     isEditMode,
+    isLoadingWeather,
   } = useReminderModal(props);
 
   const header = useMemo(
@@ -34,20 +35,24 @@ function ReminderModal(props) {
   const footer = useMemo(
     () => (
       <Fragment>
-        <Button onClick={closeModal} variant="secondary">
+        <Button
+          onClick={closeModal}
+          variant="secondary"
+          disabled={isLoadingWeather}
+        >
           Cancel
         </Button>
         <Button
           onClick={handleSave}
           className={styles.button}
           variant="success"
-          disabled={!canSave}
+          disabled={!canSave || isLoadingWeather}
         >
           Save
         </Button>
       </Fragment>
     ),
-    [canSave, closeModal, handleSave]
+    [canSave, closeModal, handleSave, isLoadingWeather]
   );
 
   return (
@@ -56,13 +61,19 @@ function ReminderModal(props) {
       header={header}
       footer={footer}
       className={styles.modal}
+      isLoading={isLoadingWeather}
     >
-      <Input label="Content" onChange={handleContentChange} value={content} />
+      <Input
+        label="Content"
+        onChange={handleContentChange}
+        value={content}
+        disabled={isLoadingWeather}
+      />
       <DatePicker
         label="Date"
         selected={date}
         onChange={handleDateChange}
-        disabled={isEditMode}
+        disabled={isLoadingWeather}
         className={styles.input}
       />
       <DatePicker
@@ -71,7 +82,7 @@ function ReminderModal(props) {
         selected={date}
         onChange={handleDateChange}
         showTimeSelectOnly
-        disabled={isEditMode}
+        disabled={isLoadingWeather}
       />
       <Select
         label="City"
@@ -79,6 +90,7 @@ function ReminderModal(props) {
         loadOptions={loadCityOptions}
         defaultValue={city}
         className={styles.input}
+        disabled={isLoadingWeather}
       />
     </Modal>
   );

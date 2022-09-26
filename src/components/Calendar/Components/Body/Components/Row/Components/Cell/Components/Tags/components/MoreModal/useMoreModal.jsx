@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux";
 
 import usePrepareDetailsModal from "components/shared/DetailsModal/usePrepareDetailsModal";
-import { getActiveDay } from "reducers/calendar/selectors";
 
 function useMoreModal() {
-  const activeDay = useSelector(getActiveDay);
+  const activeDay = useSelector(({ calendar }) => calendar.activeDay);
   const date = new Date(...activeDay.split("-"));
   const weekday = date.toLocaleDateString("en-US", { weekday: "long" });
   const formattedDate = date.toLocaleDateString("en-US", {
