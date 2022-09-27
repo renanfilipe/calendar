@@ -14,7 +14,7 @@ function Calendar() {
   const [year, setYear] = useState(initialYear);
 
   return (
-    <div>
+    <div className={styles.calendar}>
       <Controls
         month={month}
         setMonth={setMonth}
