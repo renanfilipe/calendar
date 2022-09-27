@@ -2,7 +2,7 @@ import React, { Fragment, useMemo } from "react";
 
 import Button from "components/shared/Button/Button";
 import Modal from "components/shared/Modal/Modal";
-import { string, bool, func } from "prop-types";
+import { string, func } from "prop-types";
 
 import styles from "./ConfirmModal.module.scss";
 
@@ -29,7 +29,6 @@ function ConfirmModal({ closeModal, onConfirm, message, className }) {
 }
 
 ConfirmModal.propTypes = {
-  isOpen: bool.isRequired,
   closeModal: func.isRequired,
   onConfirm: func.isRequired,
   message: string.isRequired,
