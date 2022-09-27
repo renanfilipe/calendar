@@ -22,5 +22,6 @@
 - Weather for the reminder's day is obtained from VisualCrossing
 - The application state is persisted on the localstorage
 - Unit tests were written for the calendar
+- There is a live version of the calendar at https://react-calendar-by-renan.netlify.app
 
 Please feel free to setup a meeting to talk about this project.
