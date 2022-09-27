@@ -65,6 +65,7 @@ function ReminderModal(props) {
     >
       <Input
         label="Content"
+        maxLength="30"
         onChange={handleContentChange}
         value={content}
         disabled={isLoadingWeather}
