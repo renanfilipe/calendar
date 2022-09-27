@@ -41,9 +41,18 @@ function DetailsModal({ reminder, closeModal, closeOtherModals }) {
   return (
     <Fragment>
       <Modal closeModal={closeModal} header={header}>
-        <div>{content}</div>
-        <div>{`${formattedDate} - ${city}`}</div>
-        <div>{`${conditions} - ${description}`}</div>
+        <div>
+          <h4>Content:</h4>
+          <span>{content}</span>
+        </div>
+        <div>
+          <h4>Details:</h4>
+          <span>{`${formattedDate} - ${city}`}</span>
+        </div>
+        <div>
+          <h4>Weather:</h4>
+          <span>{`${conditions} - ${description}`}</span>
+        </div>
       </Modal>
       {isReminderModalOpen && (
         <ReminderModal
