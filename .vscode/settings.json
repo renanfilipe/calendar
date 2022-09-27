@@ -1,6 +1,0 @@
-{
-  "editor.formatOnSave": true,
-  "javascript.preferences.quoteStyle": "auto",
-  "prettier.singleQuote": false,
-  "cSpell.words": ["contagem"]
-}
