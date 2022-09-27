@@ -63,36 +63,45 @@ function ReminderModal(props) {
       className={styles.modal}
       isLoading={isLoadingWeather}
     >
-      <Input
-        label="Content"
-        maxLength="30"
-        onChange={handleContentChange}
-        value={content}
-        disabled={isLoadingWeather}
-      />
-      <DatePicker
-        label="Date"
-        selected={date}
-        onChange={handleDateChange}
-        disabled={isLoadingWeather}
-        className={styles.input}
-      />
-      <DatePicker
-        label="Time"
-        className={styles.input}
-        selected={date}
-        onChange={handleDateChange}
-        showTimeSelectOnly
-        disabled={isLoadingWeather}
-      />
-      <Select
-        label="City"
-        onChange={handleCityChange}
-        loadOptions={loadCityOptions}
-        defaultValue={city}
-        className={styles.input}
-        disabled={isLoadingWeather}
-      />
+      <form>
+        <Input
+          label="Content"
+          name="content"
+          dataTestId="content"
+          maxLength="30"
+          onChange={handleContentChange}
+          value={content}
+          disabled={isLoadingWeather}
+        />
+        <DatePicker
+          label="Date"
+          customInput={<input data-testid="date" name="date" />}
+          selected={date}
+          onChange={handleDateChange}
+          disabled={isLoadingWeather}
+          className={styles.input}
+        />
+        <DatePicker
+          label="Time"
+          customInput={<input data-testid="time" name="time" />}
+          className={styles.input}
+          selected={date}
+          onChange={handleDateChange}
+          showTimeSelectOnly
+          disabled={isLoadingWeather}
+        />
+        <Select
+          label="City"
+          name="city"
+          inputId="city"
+          onChange={handleCityChange}
+          loadOptions={loadCityOptions}
+          placeholder="Chose a city"
+          defaultValue={city}
+          className={styles.input}
+          disabled={isLoadingWeather}
+        />
+      </form>
     </Modal>
   );
 }

@@ -7,10 +7,14 @@ import { string, bool } from "prop-types";
 
 import styles from "./Select.module.scss";
 
-function Select({ label, className, disabled, ...rest }) {
+function Select({ label, className, disabled, dataTestId, id, ...rest }) {
   return (
-    <Input label={label} className={classnames(styles.select, className)}>
-      <AsyncSelect cacheOptions isDisabled={disabled} {...rest} />
+    <Input
+      label={label}
+      id={id}
+      className={classnames(styles.select, className)}
+    >
+      <AsyncSelect cacheOptions isDisabled={disabled} inputId={id} {...rest} />
     </Input>
   );
 }

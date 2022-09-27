@@ -19,8 +19,8 @@ if (process.env.NODE_ENV === "development") {
 
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
 
-export default function getStore(reducer) {
-  const store = createStore(reducer, initialState, composedEnhancers);
+export default function getStore(reducer, state = initialState) {
+  const store = createStore(reducer, state, composedEnhancers);
 
   store.subscribe(
     debounce(() => {

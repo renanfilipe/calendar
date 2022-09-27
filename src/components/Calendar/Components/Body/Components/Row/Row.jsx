@@ -9,6 +9,7 @@ function Row({ data, rowNumber }) {
       {data.map(({ day, month, year, isCurrentMonth }, index) => (
         <Cell
           key={`cell-${rowNumber}-${day}`}
+          dataTestId={`cell-${rowNumber}-${index}`}
           day={day}
           month={month}
           year={year}

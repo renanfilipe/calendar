@@ -5,7 +5,15 @@ import { any, string } from "prop-types";
 
 import styles from "./Input.module.scss";
 
-function Input({ children, label, className, variant, errorMessage, ...rest }) {
+function Input({
+  children,
+  label,
+  className,
+  variant,
+  errorMessage,
+  dataTestId,
+  ...rest
+}) {
   return (
     <div
       className={classnames(
@@ -14,9 +22,13 @@ function Input({ children, label, className, variant, errorMessage, ...rest }) {
         className
       )}
     >
-      <label onClick={(e) => e.preventDefault()} className={styles.label}>
+      <label
+        onClick={(e) => e.preventDefault()}
+        className={styles.label}
+        data-testid={children ? dataTestId : undefined}
+      >
         <span>{label}</span>
-        {children ? children : <input {...rest} />}
+        {children ? children : <input {...rest} data-testid={dataTestId} />}
         {errorMessage && (
           <span className={styles["error-message"]}>{errorMessage}</span>
         )}

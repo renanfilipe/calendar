@@ -8,7 +8,15 @@ import { getReminders } from "reducers/calendar/selectors";
 import styles from "./Cell.module.scss";
 import Tags from "./components/Tags/Tags";
 
-function Cell({ day, month, year, isWeekend, isCurrentMonth, isToday }) {
+function Cell({
+  day,
+  month,
+  year,
+  isWeekend,
+  isCurrentMonth,
+  isToday,
+  dataTestId,
+}) {
   const reminders = useSelector(getReminders(day, month, year), shallowEqual);
 
   const className = classnames([
@@ -18,8 +26,11 @@ function Cell({ day, month, year, isWeekend, isCurrentMonth, isToday }) {
   ]);
 
   return (
-    <td className={className}>
-      <div className={classnames(styles.value, isToday && styles["is-today"])}>
+    <td className={className} data-testid={dataTestId}>
+      <div
+        className={classnames(styles.value, isToday && styles["is-today"])}
+        data-testid={isToday && "today"}
+      >
         <span>{day}</span>
       </div>
       {reminders.length > 0 && <Tags reminders={reminders} />}

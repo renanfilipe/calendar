@@ -8,7 +8,9 @@ import { func, node, oneOfType, string } from "prop-types";
 import customStyles from "./constants/customStyles";
 import styles from "./Modal.module.scss";
 
-ReactModal.setAppElement("#root");
+if (process.env.NODE_ENV !== "test") {
+  ReactModal.setAppElement("#root");
+}
 
 function Modal({ closeModal, children, header, footer, className, isLoading }) {
   return (
@@ -18,6 +20,7 @@ function Modal({ closeModal, children, header, footer, className, isLoading }) {
       style={customStyles}
       shouldCloseOnOverlayClick={!isLoading}
       shouldCloseOnEsc={!isLoading}
+      ariaHideApp={process.env.NODE_ENV !== "test"}
     >
       <div className={classnames(styles.modal, className)}>
         <Button
