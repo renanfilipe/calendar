@@ -6,7 +6,7 @@
     "react-hooks/exhaustive-deps": "warn",
     "react/react-in-jsx-scope": "off",
     "object-curly-newline": [
-      "error",
+      "off",
       { "consistent": true, "minProperties": 7 }
     ],
     "no-alert": "error",

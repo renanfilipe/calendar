@@ -1,0 +1,14 @@
+.table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  max-width: 1200px;
+  table-layout: fixed;
+
+  tr {
+    width: 100%;
+  }
+}
+
+.calendar {
+  overflow: auto;
+}
